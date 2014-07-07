@@ -14,10 +14,12 @@ public class CuboidJob implements Job
 	private Location min;
 	private Location max;
 	private JobStateChangedCallback callback;
+	private byte dataValue;
 	
-	public CuboidJob(Location min, Location max, Material type, JobStateChangedCallback callback)
+	public CuboidJob(Location min, Location max, Material type, JobStateChangedCallback callback, byte dataValue)
 	{
 		this.type = type;
+		this.dataValue = dataValue;
 		currLoc = new Location(min.getWorld(), 0, 0, 0);
 		jobState = JobState.Unstarted;
 		this.min = min;
@@ -74,5 +76,9 @@ public class CuboidJob implements Job
 
 	public Location getMax() {
 		return this.max;
+	}
+
+	public byte getDataValue() {
+		return this.dataValue;
 	}
 }

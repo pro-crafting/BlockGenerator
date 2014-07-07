@@ -33,6 +33,7 @@ public class BlockGenerator
 			while (changedBlocks<this.maxBlockChange&&job.getState()==JobState.Running)
 			{
 				job.getLocationToChange().getBlock().setType(job.getType());
+				job.getLocationToChange().getBlock().setData((byte) job.getDataValue());
 				changedBlocks++;
 			}
 			if (job.getState() == JobState.Finished)

@@ -7,6 +7,7 @@ public interface Job
 {
 	public Location getLocationToChange();
 	public Material getType();
+	public byte getDataValue();
 	public JobState getState();
 	public void setState(JobState state);
 }
