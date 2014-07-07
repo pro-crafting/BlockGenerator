@@ -28,9 +28,9 @@ public class BlockGenerator
 			Job job = jobs.get(i);
 			if (job.getState() == JobState.Unstarted)
 			{
-				job.setState(JobState.Started);
+				job.setState(JobState.Running);
 			}
-			while (changedBlocks<this.maxBlockChange&&job.getState()==JobState.Started)
+			while (changedBlocks<this.maxBlockChange&&job.getState()==JobState.Running)
 			{
 				job.getLocationToChange().getBlock().setType(job.getType());
 				changedBlocks++;
@@ -66,7 +66,7 @@ public class BlockGenerator
 	
 	public void addJob(Job job)
 	{
-		job.setState(JobState.Started);
+		job.setState(JobState.Running);
 		this.jobs.add(job);
 		startTask();
 	}
