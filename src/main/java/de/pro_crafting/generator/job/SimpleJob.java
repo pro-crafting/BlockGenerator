@@ -1,37 +1,52 @@
-package de.pro_crafting.generator;
+package de.pro_crafting.generator.job;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 
-public class CuboidJob implements Job
+import de.pro_crafting.generator.BlockData;
+import de.pro_crafting.generator.JobState;
+import de.pro_crafting.generator.JobStateChangedCallback;
+import de.pro_crafting.generator.Point;
+import de.pro_crafting.generator.criteria.Criteria;
+import de.pro_crafting.generator.provider.Provider;
+
+public class SimpleJob implements Job
 {
 	private int currX;
 	private int currY;
 	private int currZ;
-	private Material type;
-	private Location currLoc;
+	private Point currLoc;
 	private JobState jobState = JobState.Unstarted;
 	private Location min;
 	private Location max;
 	private JobStateChangedCallback callback;
-	private byte dataValue;
+	private Criteria criteria;
+	private Provider provider;
 	
-	public CuboidJob(Location min, Location max, Material type, JobStateChangedCallback callback, byte dataValue)
+	public SimpleJob(Location min, Location max, JobStateChangedCallback callback, Criteria criteria, Provider provider)
 	{
-		this.type = type;
-		this.dataValue = dataValue;
-		currLoc = new Location(min.getWorld(), 0, 0, 0);
 		jobState = JobState.Unstarted;
 		this.min = min;
 		this.max = max;
 		this.callback = callback;
+		this.criteria = criteria;
+		this.provider = provider;
 		
 		this.currX = min.getBlockX();
 		this.currY = max.getBlockY();
 		this.currZ = min.getBlockZ();
+		currLoc = new Point(currX, currY, currZ);
 	}
 
-	public Location getLocationToChange() {
+	public Point nextMatchingPosition() {
+		Point loc = getLocationToChange();
+		while (!criteria.matches(getBlockData()) && this.jobState == JobState.Running)
+		{
+			loc = getLocationToChange();
+		}
+		return loc;
+	}
+	
+	public Point getLocationToChange() {
 		if (this.currX == max.getBlockX() && this.currY == min.getBlockY() && this.currZ == max.getBlockZ())
 		{
 			this.setState(JobState.Finished);
@@ -56,10 +71,6 @@ public class CuboidJob implements Job
 		return this.currLoc;
 	}
 
-	public Material getType() {
-		return this.type;
-	}
-
 	public JobState getState() {
 		return this.jobState;
 	}
@@ -78,7 +89,11 @@ public class CuboidJob implements Job
 		return this.max;
 	}
 
-	public byte getDataValue() {
-		return this.dataValue;
+	public Criteria getCriteria() {
+		return criteria;
+	}
+
+	public BlockData getBlockData() {
+		return this.provider.getBlockData(this.currLoc);
 	}
 }

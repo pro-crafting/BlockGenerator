@@ -1,5 +1,7 @@
 package de.pro_crafting.generator;
 
+import de.pro_crafting.generator.job.Job;
+
 
 public interface JobStateChangedCallback 
 {

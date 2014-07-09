@@ -3,9 +3,11 @@ package de.pro_crafting.generator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+
+import de.pro_crafting.generator.job.Job;
 
 public class BlockGenerator 
 {
@@ -24,7 +26,7 @@ public class BlockGenerator
 	private void changeBlocks()
 	{
 		int changedBlocks = 0;
-		Location toChange = null;
+		Point toChange = null;
 		for (int i=jobs.size()-1;i>-1;i--)
 		{
 			Job job = jobs.get(i);
@@ -34,9 +36,12 @@ public class BlockGenerator
 			}
 			while (changedBlocks<this.maxBlockChange&&job.getState()==JobState.Running)
 			{
-				toChange = job.getLocationToChange();
-				toChange.getBlock().setType(job.getType());
-				toChange.getBlock().setData(job.getDataValue());
+				toChange = job.nextMatchingPosition();
+				if (job.getState() != JobState.Running)
+				{
+					break;
+				}
+				apply(toChange, job.getBlockData());
 				changedBlocks++;
 			}
 			if (job.getState() == JobState.Finished)
@@ -53,6 +58,13 @@ public class BlockGenerator
 			task.cancel();
 			task = null;
 		}
+	}
+	
+	private void apply(Point loc, BlockData data)
+	{
+		Block block = loc.toLocation(data.getWorld()).getBlock();
+		block.setType(data.getType());
+		block.setData(data.getDataByte());
 	}
 	
 	private void startTask()
