@@ -1,5 +1,7 @@
 package de.pro_crafting.generator.job;
 
+import org.bukkit.World;
+
 import de.pro_crafting.generator.BlockData;
 import de.pro_crafting.generator.JobState;
 import de.pro_crafting.generator.Point;
@@ -12,4 +14,5 @@ public interface Job
 	public void setState(JobState state);
 	public Criteria getCriteria();
 	public BlockData getBlockData();
+	public World getWorld();
 }

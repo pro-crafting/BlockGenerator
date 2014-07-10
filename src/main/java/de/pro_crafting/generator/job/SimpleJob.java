@@ -1,6 +1,6 @@
 package de.pro_crafting.generator.job;
 
-import org.bukkit.Location;
+import org.bukkit.World;
 
 import de.pro_crafting.generator.BlockData;
 import de.pro_crafting.generator.JobState;
@@ -16,13 +16,14 @@ public class SimpleJob implements Job
 	private int currZ;
 	private Point currLoc;
 	private JobState jobState = JobState.Unstarted;
-	private Location min;
-	private Location max;
+	private Point min;
+	private Point max;
 	private JobStateChangedCallback callback;
 	private Criteria criteria;
 	private Provider provider;
+	private World world;
 	
-	public SimpleJob(Location min, Location max, JobStateChangedCallback callback, Criteria criteria, Provider provider)
+	public SimpleJob(Point min, Point max, World world, JobStateChangedCallback callback, Criteria criteria, Provider provider)
 	{
 		jobState = JobState.Unstarted;
 		this.min = min;
@@ -31,9 +32,9 @@ public class SimpleJob implements Job
 		this.criteria = criteria;
 		this.provider = provider;
 		
-		this.currX = min.getBlockX();
-		this.currY = max.getBlockY();
-		this.currZ = min.getBlockZ();
+		this.currX = min.getX();
+		this.currY = max.getY();
+		this.currZ = min.getZ();
 		currLoc = new Point(currX, currY, currZ);
 	}
 
@@ -47,15 +48,15 @@ public class SimpleJob implements Job
 	}
 	
 	public Point getLocationToChange() {
-		if (this.currX == max.getBlockX() && this.currY == min.getBlockY() && this.currZ == max.getBlockZ())
+		if (this.currX == max.getX() && this.currY == min.getY() && this.currZ == max.getZ())
 		{
 			this.setState(JobState.Finished);
 		}
-		for (;currX<max.getBlockX()+1;currX++)
+		for (;currX<max.getX()+1;currX++)
 		{
-			for (;currY>min.getBlockY()-1;currY--)
+			for (;currY>min.getY()-1;currY--)
 			{
-				for (;currZ<max.getBlockZ()+1;)
+				for (;currZ<max.getZ()+1;)
 				{
 					currLoc.setX(currX);
 					currLoc.setY(currY);
@@ -63,9 +64,9 @@ public class SimpleJob implements Job
 					currZ++;
 					return this.currLoc;
 				}
-				currZ=min.getBlockZ();
+				currZ=min.getZ();
 			}
-			currY=max.getBlockY();
+			currY=max.getY();
 		}
 		this.setState(JobState.Finished);
 		return this.currLoc;
@@ -81,11 +82,11 @@ public class SimpleJob implements Job
 		this.callback.jobStateChanged(this, from);
 	}
 
-	public Location getMin() {
+	public Point getMin() {
 		return this.min;
 	}
 
-	public Location getMax() {
+	public Point getMax() {
 		return this.max;
 	}
 
@@ -95,5 +96,10 @@ public class SimpleJob implements Job
 
 	public BlockData getBlockData() {
 		return this.provider.getBlockData(this.currLoc);
+	}
+
+	public World getWorld() {
+		// TODO Auto-generated method stub
+		return world;
 	}
 }

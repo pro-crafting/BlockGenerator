@@ -3,6 +3,7 @@ package de.pro_crafting.generator;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -41,7 +42,7 @@ public class BlockGenerator
 				{
 					break;
 				}
-				apply(toChange, job.getBlockData());
+				apply(job.getWorld(), toChange, job.getBlockData());
 				changedBlocks++;
 			}
 			if (job.getState() == JobState.Finished)
@@ -60,9 +61,9 @@ public class BlockGenerator
 		}
 	}
 	
-	private void apply(Point loc, BlockData data)
+	private void apply(World world, Point loc, BlockData data)
 	{
-		Block block = loc.toLocation(data.getWorld()).getBlock();
+		Block block = world.getBlockAt(loc.getX(), loc.getY(), loc.getZ());
 		block.setType(data.getType());
 		block.setData(data.getDataByte());
 	}
