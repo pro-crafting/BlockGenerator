@@ -40,7 +40,7 @@ public class SimpleJob implements Job
 
 	public Point nextMatchingPosition() {
 		Point loc = getLocationToChange();
-		while (!criteria.matches(getBlockData()) && this.jobState == JobState.Running)
+		while (!criteria.matches(getBlockData(), loc) && this.jobState == JobState.Running)
 		{
 			loc = getLocationToChange();
 		}
