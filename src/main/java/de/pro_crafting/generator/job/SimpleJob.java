@@ -28,6 +28,7 @@ public class SimpleJob implements Job
 		jobState = JobState.Unstarted;
 		this.min = min;
 		this.max = max;
+		this.world = world;
 		this.callback = callback;
 		this.criteria = criteria;
 		this.provider = provider;
@@ -99,7 +100,6 @@ public class SimpleJob implements Job
 	}
 
 	public World getWorld() {
-		// TODO Auto-generated method stub
 		return world;
 	}
 }
