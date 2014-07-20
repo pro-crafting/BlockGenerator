@@ -47,7 +47,7 @@ public class SimpleJob implements Job
 		while (!criteria.matches(current, loc) && this.jobState == JobState.Running)
 		{
 			loc = getLocationToChange();
-			block = world.getBlockAt(currX, currY, currZ);
+			block = world.getBlockAt(loc.getX(), loc.getY(), loc.getZ());
 			current = new BlockData(block.getType(), block.getData());
 		}
 		return loc;
