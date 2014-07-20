@@ -48,8 +48,7 @@ public class SimpleJob implements Job
 		{
 			loc = getLocationToChange();
 			block = world.getBlockAt(currX, currY, currZ);
-			current.setType(block.getType());
-			current.setDataByte(block.getData());
+			current = new BlockData(block.getType(), block.getData());
 		}
 		return loc;
 	}

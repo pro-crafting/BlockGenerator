@@ -21,15 +21,6 @@ public class BlockData {
 		this.type = type;
 	}
 	
-	public byte getDataByte()
-	{
-		return dataByte;
-	}
-
-	public void setDataByte(byte dataByte) {
-		this.dataByte = dataByte;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
