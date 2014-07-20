@@ -16,7 +16,10 @@ public class SingleBlockCriteria implements Criteria {
 	
 	public boolean matches(BlockData block, Point point) {
 		boolean shouldSet = block.getType() == this.type;
-		return wraped != null && shouldSet ? wraped.matches(block, point) : shouldSet;
+		if (wraped != null && shouldSet) {
+			return wraped.matches(block, point);
+		}
+		return shouldSet;
 	}
 
 	public void wrap(Criteria criteria) {

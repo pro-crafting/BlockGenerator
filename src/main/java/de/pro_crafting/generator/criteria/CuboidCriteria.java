@@ -8,7 +8,10 @@ public class CuboidCriteria implements Criteria{
 	private Criteria wraped;
 	
 	public boolean matches(BlockData block, Point point) {
-		return wraped != null ? wraped.matches(block, point) : true;
+		if (wraped != null) {
+			return wraped.matches(block, point);
+		}
+		return true;
 	}
 
 	public void wrap(Criteria criteria) {
