@@ -38,19 +38,23 @@ public class SimpleJob implements Job
 	}
 
 	public Point nextMatchingPosition() {
-		Point loc = getLocationToChange();
 		Block block = world.getBlockAt(currX, currY, currZ);
+		Point loc = getLocationToChange();
+		
 		BlockData current = new BlockData(block.getType(), block.getData());
 		while (!criteria.matches(current, loc) && this.jobState == JobState.Running)
 		{
+			block = world.getBlockAt(currX, currY, currZ);
 			loc = getLocationToChange();
-			block = world.getBlockAt(loc.getX(), loc.getY(), loc.getZ());
 			current = new BlockData(block.getType(), block.getData());
 		}
 		return loc;
 	}
 	
 	private Point getLocationToChange() {
+		if (currX == max.getX()+1) {
+			this.setState(JobState.Finished);
+		}
 		currLoc.setX(currX);
 		currLoc.setY(currY);
 		currLoc.setZ(currZ);
@@ -65,9 +69,6 @@ public class SimpleJob implements Job
 		if (currY == min.getY()-1) {
 			currY = max.getY();
 			currX++;
-		}
-		if (currX == max.getX()+1) {
-			this.setState(JobState.Finished);
 		}
 		return this.currLoc;
 	}
