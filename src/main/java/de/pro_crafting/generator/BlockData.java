@@ -17,8 +17,9 @@ public class BlockData {
 		return type;
 	}
 	
-	public void setType(Material type) {
-		this.type = type;
+	public byte getDataByte()
+	{
+		return dataByte;
 	}
 	
 	@Override
