@@ -16,7 +16,7 @@ public class SimpleJob implements Job
 	private int currY;
 	private int currZ;
 	private Point currLoc;
-	private JobState jobState = JobState.Unstarted;
+	private JobState jobState;
 	private Point min;
 	private Point max;
 	private JobStateChangedCallback callback;
@@ -34,9 +34,6 @@ public class SimpleJob implements Job
 		this.criteria = criteria;
 		this.provider = provider;
 		
-		this.currX = min.getX();
-		this.currY = max.getY();
-		this.currZ = min.getZ();
 		currLoc = new Point(currX, currY, currZ);
 	}
 
@@ -53,28 +50,25 @@ public class SimpleJob implements Job
 		return loc;
 	}
 	
-	public Point getLocationToChange() {
-		if (this.currX == max.getX() && this.currY == min.getY() && this.currZ == max.getZ())
-		{
+	private Point getLocationToChange() {
+		currLoc.setX(currX);
+		currLoc.setY(currY);
+		currLoc.setZ(currZ);
+		
+		currZ++;
+		
+		if (currZ == max.getZ()+1) {
+			currZ = min.getZ();
+			currY--;
+		}
+		
+		if (currY == min.getY()-1) {
+			currY = max.getY();
+			currX++;
+		}
+		if (currX == max.getX()+1) {
 			this.setState(JobState.Finished);
 		}
-		for (;currX<max.getX()+1;currX++)
-		{
-			for (;currY>min.getY()-1;currY--)
-			{
-				for (;currZ<max.getZ()+1;)
-				{
-					currLoc.setX(currX);
-					currLoc.setY(currY);
-					currLoc.setZ(currZ);
-					currZ++;
-					return this.currLoc;
-				}
-				currZ=min.getZ();
-			}
-			currY=max.getY();
-		}
-		this.setState(JobState.Finished);
 		return this.currLoc;
 	}
 
