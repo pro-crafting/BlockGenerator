@@ -34,6 +34,10 @@ public class SimpleJob implements Job
 		this.criteria = criteria;
 		this.provider = provider;
 		
+		currX = min.getX();
+		currY = max.getY();
+		currZ = min.getZ();
+		
 		currLoc = new Point(currX, currY, currZ);
 	}
 
