@@ -1,6 +1,7 @@
 package de.pro_crafting.generator.job;
 
 import org.bukkit.World;
+import org.bukkit.block.Block;
 
 import de.pro_crafting.generator.BlockData;
 import de.pro_crafting.generator.JobState;
@@ -41,9 +42,14 @@ public class SimpleJob implements Job
 
 	public Point nextMatchingPosition() {
 		Point loc = getLocationToChange();
-		while (!criteria.matches(getBlockData(), loc) && this.jobState == JobState.Running)
+		Block block = world.getBlockAt(currX, currY, currZ);
+		BlockData current = new BlockData(block.getType(), block.getData());
+		while (!criteria.matches(current, loc) && this.jobState == JobState.Running)
 		{
 			loc = getLocationToChange();
+			block = world.getBlockAt(currX, currY, currZ);
+			current.setType(block.getType());
+			current.setDataByte(block.getData());
 		}
 		return loc;
 	}
