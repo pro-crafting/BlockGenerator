@@ -23,6 +23,7 @@ public class SimpleJob implements Job
 	private Criteria criteria;
 	private Provider provider;
 	private World world;
+	private int affected = -1; //TODO: FIX it
 	
 	public SimpleJob(Point min, Point max, World world, JobStateChangedCallback callback, Criteria criteria, Provider provider)
 	{
@@ -52,6 +53,7 @@ public class SimpleJob implements Job
 			loc = getLocationToChange();
 			current = new BlockData(block.getType(), block.getData());
 		}
+		this.affected++;
 		return loc;
 	}
 	
@@ -105,5 +107,9 @@ public class SimpleJob implements Job
 
 	public World getWorld() {
 		return world;
+	}
+
+	public int getAffectedBlocks() {
+		return affected;
 	}
 }

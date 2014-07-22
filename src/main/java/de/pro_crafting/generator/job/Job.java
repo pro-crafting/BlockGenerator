@@ -15,4 +15,5 @@ public interface Job
 	public Criteria getCriteria();
 	public BlockData getBlockData();
 	public World getWorld();
+	public int getAffectedBlocks();
 }
