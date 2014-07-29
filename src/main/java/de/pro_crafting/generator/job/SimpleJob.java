@@ -3,10 +3,10 @@ package de.pro_crafting.generator.job;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
+import de.pro_crafting.common.Point;
 import de.pro_crafting.generator.BlockData;
 import de.pro_crafting.generator.JobState;
 import de.pro_crafting.generator.JobStateChangedCallback;
-import de.pro_crafting.generator.Point;
 import de.pro_crafting.generator.criteria.Criteria;
 import de.pro_crafting.generator.provider.Provider;
 
@@ -23,7 +23,7 @@ public class SimpleJob implements Job
 	private Criteria criteria;
 	private Provider provider;
 	private World world;
-	private int affected = -1; //TODO: FIX it
+	private int affected = 0;
 	
 	public SimpleJob(Point min, Point max, World world, JobStateChangedCallback callback, Criteria criteria, Provider provider)
 	{
@@ -53,13 +53,16 @@ public class SimpleJob implements Job
 			loc = getLocationToChange();
 			current = new BlockData(block.getType(), block.getData());
 		}
-		this.affected++;
+		if (this.jobState == JobState.Running) {
+			this.affected++;
+		}
 		return loc;
 	}
 	
 	private Point getLocationToChange() {
 		if (currX == max.getX()+1) {
 			this.setState(JobState.Finished);
+			return currLoc;
 		}
 		currLoc.setX(currX);
 		currLoc.setY(currY);

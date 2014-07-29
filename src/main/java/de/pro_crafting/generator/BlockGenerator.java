@@ -8,6 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
+import de.pro_crafting.common.Point;
 import de.pro_crafting.generator.job.Job;
 
 public class BlockGenerator 

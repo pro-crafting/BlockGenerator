@@ -2,8 +2,8 @@ package de.pro_crafting.generator.provider;
 
 import org.bukkit.Material;
 
+import de.pro_crafting.common.Point;
 import de.pro_crafting.generator.BlockData;
-import de.pro_crafting.generator.Point;
 
 public class SingleBlockProvider implements Provider{
 	private BlockData blockData;
