@@ -64,6 +64,9 @@ public class BlockGenerator
 	
 	private void apply(World world, Point loc, BlockData data)
 	{
+		if (data == null) {
+			return;
+		}
 		Block block = world.getBlockAt(loc.getX(), loc.getY(), loc.getZ());
 		block.setType(data.getType());
 		block.setData(data.getDataByte());
