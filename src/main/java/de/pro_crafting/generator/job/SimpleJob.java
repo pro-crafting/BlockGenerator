@@ -89,7 +89,9 @@ public class SimpleJob implements Job
 	public void setState(JobState state) {
 		JobState from = this.jobState;
 		this.jobState = state;
-		this.callback.jobStateChanged(this, from);
+		if (this.callback != null) {
+			this.callback.jobStateChanged(this, from);
+		}
 	}
 
 	public Point getMin() {
