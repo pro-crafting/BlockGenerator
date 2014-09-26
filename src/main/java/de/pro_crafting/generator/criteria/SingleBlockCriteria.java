@@ -14,10 +14,10 @@ public class SingleBlockCriteria implements Criteria {
 		this.type = type;
 	}
 	
-	public boolean matches(BlockData block, Point point) {
+	public boolean matches(Point point, BlockData block) {
 		boolean shouldSet = block.getType() == this.type;
 		if (wraped != null && shouldSet) {
-			return wraped.matches(block, point);
+			return wraped.matches(point, block);
 		}
 		return shouldSet;
 	}

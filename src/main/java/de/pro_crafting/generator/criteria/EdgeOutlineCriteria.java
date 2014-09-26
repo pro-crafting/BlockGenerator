@@ -15,10 +15,10 @@ public class EdgeOutlineCriteria implements Criteria {
 		this.max = max;
 	}
 	
-	public boolean matches(BlockData block, Point point) {
+	public boolean matches(Point point, BlockData block) {
 		boolean shouldset = isSide(point, min.getY()) || isSide(point, max.getY()) || isEdge(point);
 		
-		return wraped != null && shouldset ? wraped.matches(block, point) : shouldset;
+		return wraped != null && shouldset ? wraped.matches(point, block) : shouldset;
 	}
 	
 	private boolean isSide(Point p, int y)

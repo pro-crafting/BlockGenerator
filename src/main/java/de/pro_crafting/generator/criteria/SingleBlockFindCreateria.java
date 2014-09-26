@@ -18,10 +18,10 @@ public class SingleBlockFindCreateria {
 		this.matches = new ArrayList<Point>();
 	}
 	
-	public boolean matches(BlockData block, Point point) {
+	public boolean matches(Point point, BlockData block) {
 		boolean shouldSet = block.getType() == this.type;
 		if (wraped != null && shouldSet) {
-			shouldSet = wraped.matches(block, point);
+			shouldSet = wraped.matches(point, block);
 		}
 		if (shouldSet) {
 			this.matches.add(point);

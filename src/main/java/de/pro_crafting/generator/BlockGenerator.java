@@ -2,6 +2,7 @@ package de.pro_crafting.generator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -28,7 +29,7 @@ public class BlockGenerator
 	private void changeBlocks()
 	{
 		int changedBlocks = 0;
-		Point toChange = null;
+		Entry<Point, BlockData> toChange = null;
 		for (int i=jobs.size()-1;i>-1;i--)
 		{
 			Job job = jobs.get(i);
@@ -38,12 +39,12 @@ public class BlockGenerator
 			}
 			while (changedBlocks<this.maxBlockChange&&job.getState()==JobState.Running)
 			{
-				toChange = job.nextMatchingPosition();
+				toChange = job.next();
 				if (job.getState() != JobState.Running)
 				{
 					break;
 				}
-				apply(job.getWorld(), toChange, job.getBlockData());
+				apply(job.getWorld(), toChange.getKey(), toChange.getValue());
 				changedBlocks++;
 			}
 			if (job.getState() == JobState.Finished)

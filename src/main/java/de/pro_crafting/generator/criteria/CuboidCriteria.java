@@ -3,24 +3,21 @@ package de.pro_crafting.generator.criteria;
 import de.pro_crafting.common.Point;
 import de.pro_crafting.generator.BlockData;
 
-public class CuboidCriteria implements Criteria{
-	
+public class CuboidCriteria implements Criteria {
+
 	private Criteria wraped;
-	
-	public boolean matches(BlockData block, Point point) {
+
+	public boolean matches(Point point, BlockData block) {
 		if (wraped != null) {
-			return wraped.matches(block, point);
+			return wraped.matches(point, block);
 		}
 		return true;
 	}
 
 	public void wrap(Criteria criteria) {
-		if (wraped == null)
-		{
+		if (wraped == null) {
 			wraped = criteria;
-		}
-		else
-		{
+		} else {
 			wraped.wrap(criteria);
 		}
 	}

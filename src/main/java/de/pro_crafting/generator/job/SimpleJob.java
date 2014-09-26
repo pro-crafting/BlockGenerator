@@ -1,5 +1,8 @@
 package de.pro_crafting.generator.job;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
+
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
@@ -7,7 +10,6 @@ import de.pro_crafting.common.Point;
 import de.pro_crafting.generator.BlockData;
 import de.pro_crafting.generator.JobState;
 import de.pro_crafting.generator.JobStateChangedCallback;
-import de.pro_crafting.generator.criteria.Criteria;
 import de.pro_crafting.generator.provider.Provider;
 
 public class SimpleJob implements Job
@@ -20,19 +22,17 @@ public class SimpleJob implements Job
 	private Point min;
 	private Point max;
 	private JobStateChangedCallback callback;
-	private Criteria criteria;
 	private Provider provider;
 	private World world;
 	private int affected;
 	
-	public SimpleJob(Point min, Point max, World world, JobStateChangedCallback callback, Criteria criteria, Provider provider)
+	public SimpleJob(Point min, Point max, World world, JobStateChangedCallback callback, Provider provider)
 	{
 		jobState = JobState.Unstarted;
 		this.min = min;
 		this.max = max;
 		this.world = world;
 		this.callback = callback;
-		this.criteria = criteria;
 		this.provider = provider;
 		
 		currX = min.getX();
@@ -42,21 +42,14 @@ public class SimpleJob implements Job
 		currLoc = new Point(currX, currY, currZ);
 	}
 
-	public Point nextMatchingPosition() {
+	public Entry<Point, BlockData> next() {
 		Block block = world.getBlockAt(currX, currY, currZ);
 		Point loc = getLocationToChange();
 		
 		BlockData current = new BlockData(block.getType(), block.getData());
-		while (!criteria.matches(current, loc) && this.jobState == JobState.Running)
-		{
-			block = world.getBlockAt(currX, currY, currZ);
-			loc = getLocationToChange();
-			current = new BlockData(block.getType(), block.getData());
-		}
-		if (this.jobState == JobState.Running) {
-			this.affected++;
-		}
-		return loc;
+		BlockData ret = this.provider.getBlockData(loc, current);
+		
+		return new SimpleEntry<Point, BlockData>(loc, ret);
 	}
 	
 	private Point getLocationToChange() {
@@ -100,17 +93,6 @@ public class SimpleJob implements Job
 
 	public Point getMax() {
 		return this.max;
-	}
-
-	public Criteria getCriteria() {
-		return criteria;
-	}
-	
-	public BlockData getBlockData() {
-		if (this.provider == null) {
-			return null;
-		}
-		return this.provider.getBlockData(this.currLoc);
 	}
 
 	public World getWorld() {
