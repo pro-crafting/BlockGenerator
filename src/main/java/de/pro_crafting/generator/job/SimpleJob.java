@@ -19,25 +19,21 @@ public class SimpleJob implements Job
 	private int currZ;
 	private Point currLoc;
 	private JobState jobState;
-	private Point min;
-	private Point max;
 	private JobStateChangedCallback callback;
 	private Provider provider;
 	private World world;
 	private int affected;
 	
-	public SimpleJob(Point min, Point max, World world, JobStateChangedCallback callback, Provider provider)
+	public SimpleJob(World world, JobStateChangedCallback callback, Provider provider)
 	{
 		jobState = JobState.Unstarted;
-		this.min = min;
-		this.max = max;
 		this.world = world;
 		this.callback = callback;
 		this.provider = provider;
 		
-		currX = min.getX();
-		currY = max.getY();
-		currZ = min.getZ();
+		currX = this.getMin().getX();
+		currY = this.getMax().getY();
+		currZ = this.getMin().getZ();
 		
 		currLoc = new Point(currX, currY, currZ);
 	}
@@ -53,7 +49,7 @@ public class SimpleJob implements Job
 	}
 	
 	private Point getLocationToChange() {
-		if (currX == max.getX()+1) {
+		if (currX == getMax().getX()+1) {
 			this.setState(JobState.Finished);
 			return currLoc;
 		}
@@ -63,13 +59,13 @@ public class SimpleJob implements Job
 		
 		currZ++;
 		
-		if (currZ == max.getZ()+1) {
-			currZ = min.getZ();
+		if (currZ == getMax().getZ()+1) {
+			currZ = getMin().getZ();
 			currY--;
 		}
 		
-		if (currY == min.getY()-1) {
-			currY = max.getY();
+		if (currY == getMin().getY()-1) {
+			currY = getMax().getY();
 			currX++;
 		}
 		return this.currLoc;
@@ -88,11 +84,11 @@ public class SimpleJob implements Job
 	}
 
 	public Point getMin() {
-		return this.min;
+		return provider.getMin();
 	}
 
 	public Point getMax() {
-		return this.max;
+		return provider.getMax();
 	}
 
 	public World getWorld() {
