@@ -12,14 +12,11 @@ public class SingleBlockProvider implements Provider{
 	private Point min;
 	private Point max;
 	
-	public SingleBlockProvider(Criteria criteria, Point min, Point max) {
+	public SingleBlockProvider(Criteria criteria, Material type, byte dataByte, Point min, Point max) {
 		this.criteria = criteria;
+		this.blockData = new BlockData(type, dataByte);
 		this.min = min;
 		this.max = max;
-	}
-	
-	public SingleBlockProvider(Material type, byte dataByte) {
-		this.blockData = new BlockData(type, dataByte);
 	}
 	
 	public BlockData getBlockData(Point point, BlockData block) {
