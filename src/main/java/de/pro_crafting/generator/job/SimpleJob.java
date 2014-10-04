@@ -43,7 +43,7 @@ public class SimpleJob implements Job
 		this.size = size;
 		
 		this.currX = 0;
-		this.currY = 0;
+		this.currY = size.getHeight();
 		this.currZ = 0;
 		
 		
@@ -82,7 +82,7 @@ public class SimpleJob implements Job
 			currY--;
 		}
 		
-		if (currY == 0) {
+		if (currY == -1) {
 			currY = getSize().getHeight();
 			currX++;
 		}
