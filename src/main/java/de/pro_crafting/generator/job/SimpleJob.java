@@ -7,10 +7,12 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import de.pro_crafting.common.Point;
+import de.pro_crafting.common.Size;
 import de.pro_crafting.generator.BlockData;
 import de.pro_crafting.generator.JobState;
 import de.pro_crafting.generator.JobStateChangedCallback;
 import de.pro_crafting.generator.provider.Provider;
+import de.pro_crafting.generator.provider.SizeProvider;
 
 public class SimpleJob implements Job
 {
@@ -18,38 +20,54 @@ public class SimpleJob implements Job
 	private int currY;
 	private int currZ;
 	private Point currLoc;
+	
 	private JobState jobState;
 	private JobStateChangedCallback callback;
 	private Provider provider;
 	private World world;
 	private int affected;
+	private Point origin;
+	private Size size;
 	
-	public SimpleJob(World world, JobStateChangedCallback callback, Provider provider)
-	{
-		jobState = JobState.Unstarted;
+	public SimpleJob(Point origin, World world, JobStateChangedCallback callback, SizeProvider provider) {
+		this(origin, provider.getSize(), world, callback, provider);
+	}
+
+	public SimpleJob(Point origin, Size size, World world, JobStateChangedCallback callback, Provider provider) {
+		this.jobState = JobState.Unstarted;
 		this.world = world;
 		this.callback = callback;
 		this.provider = provider;
 		
-		currX = this.getMin().getX();
-		currY = this.getMax().getY();
-		currZ = this.getMin().getZ();
+		this.origin = origin;
+		this.size = size;
 		
+		this.currX = 0;
+		this.currY = 0;
+		this.currZ = 0;
+		
+		
+		this.affected = 0;
 		currLoc = new Point(currX, currY, currZ);
 	}
-
+	
 	public Entry<Point, BlockData> next() {
-		Block block = world.getBlockAt(currX, currY, currZ);
-		Point loc = getLocationToChange();
+		Point relativeLocation = getLocationToChange();
+		Point worldLocation = new Point(relativeLocation.getX()+this.origin.getX(), relativeLocation.getY()+this.origin.getY(), relativeLocation.getZ()+this.origin.getZ());
+		Block block = world.getBlockAt(worldLocation.getX(), worldLocation.getY(), worldLocation.getZ());
 		
 		BlockData current = new BlockData(block.getType(), block.getData());
-		BlockData ret = this.provider.getBlockData(loc, current);
+		BlockData ret = this.provider.getBlockData(relativeLocation, current);
 		
-		return new SimpleEntry<Point, BlockData>(loc, ret);
+		if (!current.equals(ret)) {
+			affected++;
+		}
+		
+		return new SimpleEntry<Point, BlockData>(worldLocation, ret);
 	}
 	
 	private Point getLocationToChange() {
-		if (currX == getMax().getX()+1) {
+		if (currX == getSize().getWidth()+1) {
 			this.setState(JobState.Finished);
 			return currLoc;
 		}
@@ -59,13 +77,13 @@ public class SimpleJob implements Job
 		
 		currZ++;
 		
-		if (currZ == getMax().getZ()+1) {
-			currZ = getMin().getZ();
+		if (currZ == getSize().getDepth()+1) {
+			currZ = 0;
 			currY--;
 		}
 		
-		if (currY == getMin().getY()-1) {
-			currY = getMax().getY();
+		if (currY == 0) {
+			currY = getSize().getHeight();
 			currX++;
 		}
 		return this.currLoc;
@@ -83,19 +101,19 @@ public class SimpleJob implements Job
 		}
 	}
 
-	public Point getMin() {
-		return provider.getMin();
+	public Point getOrigin() {
+		return this.origin;
 	}
 
-	public Point getMax() {
-		return provider.getMax();
+	public Size getSize() {
+		return this.size;
 	}
-
+	
 	public World getWorld() {
-		return world;
+		return this.world;
 	}
 
 	public int getAffectedBlocks() {
-		return affected;
+		return this.affected;
 	}
 }

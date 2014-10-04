@@ -19,52 +19,42 @@ public class BlockGenerator
 	private BukkitTask task;
 	private int maxBlockChange;
 	
-	public BlockGenerator(JavaPlugin plugin, int maxBlockChange)
-	{
+	public BlockGenerator(JavaPlugin plugin, int maxBlockChange) {
 		this.plugin = plugin;
 		this.jobs = new ArrayList<Job>();
 		this.maxBlockChange = maxBlockChange;
 	}
 	
-	private void changeBlocks()
-	{
+	private void changeBlocks() {
 		int changedBlocks = 0;
 		Entry<Point, BlockData> toChange = null;
-		for (int i=jobs.size()-1;i>-1;i--)
-		{
+		for (int i=jobs.size()-1;i>-1;i--) {
 			Job job = jobs.get(i);
-			if (job.getState() == JobState.Unstarted)
-			{
+			if (job.getState() == JobState.Unstarted) {
 				job.setState(JobState.Running);
 			}
-			while (changedBlocks<this.maxBlockChange&&job.getState()==JobState.Running)
-			{
+			while (changedBlocks<this.maxBlockChange&&job.getState()==JobState.Running) {
 				toChange = job.next();
-				if (job.getState() != JobState.Running)
-				{
+				if (job.getState() != JobState.Running) {
 					break;
 				}
 				apply(job.getWorld(), toChange.getKey(), toChange.getValue());
 				changedBlocks++;
 			}
-			if (job.getState() == JobState.Finished)
-			{
+			if (job.getState() == JobState.Finished) {
 				jobs.remove(i);
 			}
-			if (changedBlocks>=this.maxBlockChange)
-			{
+			if (changedBlocks>=this.maxBlockChange) {
 				break;
 			}
 		}
-		if (this.jobs.size() == 0)
-		{
+		if (this.jobs.size() == 0) {
 			task.cancel();
 			task = null;
 		}
 	}
 	
-	private void apply(World world, Point loc, BlockData data)
-	{
+	private void apply(World world, Point loc, BlockData data) {
 		if (data == null) {
 			return;
 		}
@@ -73,10 +63,8 @@ public class BlockGenerator
 		block.setData(data.getDataByte());
 	}
 	
-	private void startTask()
-	{
-		if (task == null)
-		{
+	private void startTask() {
+		if (task == null) {
 			task = this.plugin.getServer().getScheduler().runTaskTimer(this.plugin, new Runnable(){
 				public void run()
 				{
@@ -86,8 +74,7 @@ public class BlockGenerator
 		}
 	}
 	
-	public void addJob(Job job)
-	{
+	public void addJob(Job job) {
 		job.setState(JobState.Running);
 		this.jobs.add(job);
 		startTask();

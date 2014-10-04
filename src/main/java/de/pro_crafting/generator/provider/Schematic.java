@@ -4,15 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.pro_crafting.common.Point;
+import de.pro_crafting.common.Size;
 import de.pro_crafting.generator.BlockData;
 
 public class Schematic {
 	private Point offset;
 	private Point origin;
-	private Point size;
+	private Size size;
 	private Map<Point, BlockData> blocks;
 	
-	public Schematic(Point offset, Point origin, Point size) {
+	public Schematic(Point offset, Point origin, Size size) {
 		this.blocks = new HashMap<Point, BlockData>();
 		this.offset = offset;
 		this.origin = origin;
@@ -35,11 +36,11 @@ public class Schematic {
 		this.origin = origin;
 	}
 
-	public Point getSize() {
+	public Size getSize() {
 		return size;
 	}
 
-	public void setSize(Point size) {
+	public void setSize(Size size) {
 		this.size = size;
 	}
 

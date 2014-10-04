@@ -7,6 +7,4 @@ import de.pro_crafting.generator.criteria.Criteria;
 public interface Provider {
 	BlockData getBlockData(Point point, BlockData block);
 	Criteria getCriteria();
-	Point getMin();
-	Point getMax();
 }

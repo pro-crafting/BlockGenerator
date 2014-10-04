@@ -14,16 +14,15 @@ import org.jnbt.StringTag;
 import org.jnbt.Tag;
 
 import de.pro_crafting.common.Point;
+import de.pro_crafting.common.Size;
 import de.pro_crafting.generator.BlockData;
 import de.pro_crafting.generator.criteria.Criteria;
 
-public class SchematicProvider implements Provider{
+public class SchematicProvider implements SizeProvider{
 	private Criteria criteria;
-	private Point min;
-	private Point max;
 	private Schematic schem;
 	
-	public SchematicProvider(Criteria criteria, String name, Point min) {
+	public SchematicProvider(Criteria criteria, String name) {
 		this.criteria = criteria;
 		
 		try {
@@ -31,9 +30,6 @@ public class SchematicProvider implements Provider{
 		} catch (Exception e) {	
 			e.printStackTrace();
 		}
-		this.min = min;
-		this.max = min;
-		this.max.add(this.schem.getSize());
 	}
 	
 	private Schematic load(String fileName) throws Exception {
@@ -148,7 +144,7 @@ public class SchematicProvider implements Provider{
 	        tileEntitiesMap.put(vec, values);
 	    }*/
 	
-	    Point size = new Point(width, height, length);
+	    Size size = new Size(width, height, length);
 	    schem = new Schematic(offset, origin, size);
 	
 	    for (int x = 0; x < width; ++x) {
@@ -179,15 +175,11 @@ public class SchematicProvider implements Provider{
 	public Criteria getCriteria() {
 		return this.criteria;
 	}
-
-	public Point getMin() {
-		return this.min;
-	}
-
-	public Point getMax() {
-		return this.max;
-	}
 	
+
+	public Size getSize() {
+		return this.schem.getSize();
+	}
 	
 	/**
      * Get child tag of a NBT structure.
