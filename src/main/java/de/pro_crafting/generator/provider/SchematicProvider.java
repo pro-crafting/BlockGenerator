@@ -23,11 +23,11 @@ public class SchematicProvider implements SizeProvider{
 	private Criteria criteria;
 	private Schematic schem;
 	
-	public SchematicProvider(Criteria criteria, File folder, String name) {
+	public SchematicProvider(Criteria criteria, File file) {
 		this.criteria = criteria;
 		
 		try {
-			this.schem = load(new File(folder, name));
+			this.schem = load(file);
 		} catch (Exception e) {	
 			e.printStackTrace();
 		}
