@@ -1,5 +1,6 @@
 package de.pro_crafting.generator.provider;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
@@ -22,19 +23,19 @@ public class SchematicProvider implements SizeProvider{
 	private Criteria criteria;
 	private Schematic schem;
 	
-	public SchematicProvider(Criteria criteria, String name) {
+	public SchematicProvider(Criteria criteria, File folder, String name) {
 		this.criteria = criteria;
 		
 		try {
-			this.schem = load(name);
+			this.schem = load(new File(folder, name));
 		} catch (Exception e) {	
 			e.printStackTrace();
 		}
 	}
 	
-	private Schematic load(String fileName) throws Exception {
+	private Schematic load(File file) throws Exception {
 		NBTInputStream nbtStream = new NBTInputStream(
-                new GZIPInputStream(new FileInputStream(fileName)));
+                new GZIPInputStream(new FileInputStream(file.getAbsolutePath())));
 
 	    Point origin = new Point(0, 0, 0);
 	    Point offset = new Point(0, 0, 0);
