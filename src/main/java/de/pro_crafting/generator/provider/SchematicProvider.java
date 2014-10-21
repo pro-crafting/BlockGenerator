@@ -34,8 +34,7 @@ public class SchematicProvider implements SizeProvider{
 	}
 	
 	private Schematic load(File file) throws Exception {
-		NBTInputStream nbtStream = new NBTInputStream(
-                new GZIPInputStream(new FileInputStream(file.getAbsolutePath())));
+		NBTInputStream nbtStream = new NBTInputStream(new FileInputStream(file));
 
 	    Point origin = new Point(0, 0, 0);
 	    Point offset = new Point(0, 0, 0);
