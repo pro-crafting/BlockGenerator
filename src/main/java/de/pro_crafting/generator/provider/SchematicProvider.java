@@ -58,9 +58,9 @@ public class SchematicProvider implements SizeProvider{
 	    short height = getChildTag(schematic, "Height", ShortTag.class).getValue();
 	
 	    try {
-	        int originX = getChildTag(schematic, "WEOriginX", IntTag.class).getValue();
+	        int originX = getChildTag(schematic, "WEOriginX", IntTag.class).getValue()+1;
 	        int originY = getChildTag(schematic, "WEOriginY", IntTag.class).getValue();
-	        int originZ = getChildTag(schematic, "WEOriginZ", IntTag.class).getValue();
+	        int originZ = getChildTag(schematic, "WEOriginZ", IntTag.class).getValue()+1;
 	        origin = new Point(originX, originY, originZ);
 	    } catch (Exception e) {
 	        // No origin data
