@@ -27,19 +27,15 @@ public class BlockGenerator
 	
 	private void changeBlocks() {
 		int changedBlocks = 0;
-		Entry<Point, BlockData> toChange = null;
 		for (int i=jobs.size()-1;i>-1;i--) {
 			Job job = jobs.get(i);
 			if (job.getState() == JobState.Unstarted) {
 				job.setState(JobState.Running);
 			}
 			while (changedBlocks<this.maxBlockChange&&job.getState()==JobState.Running) {
-				toChange = job.next();
-				if (job.getState() != JobState.Running) {
-					break;
+				if (job.next()) {
+					changedBlocks++;
 				}
-				apply(job.getWorld(), toChange.getKey(), toChange.getValue());
-				changedBlocks++;
 			}
 			if (job.getState() == JobState.Finished) {
 				jobs.remove(i);
@@ -52,15 +48,6 @@ public class BlockGenerator
 			task.cancel();
 			task = null;
 		}
-	}
-	
-	private void apply(World world, Point loc, BlockData data) {
-		if (data == null) {
-			return;
-		}
-		Block block = world.getBlockAt(loc.getX(), loc.getY(), loc.getZ());
-		block.setType(data.getType());
-		block.setData(data.getDataByte());
 	}
 	
 	private void startTask() {

@@ -51,7 +51,7 @@ public class SimpleJob implements Job
 		currLoc = new Point(currX, currY, currZ);
 	}
 	
-	public Entry<Point, BlockData> next() {
+	public boolean next() {
 		Point relativeLocation = getLocationToChange();
 		Point worldLocation = new Point(relativeLocation.getX()+this.origin.getX(), relativeLocation.getY()+this.origin.getY(), relativeLocation.getZ()+this.origin.getZ());
 		Block block = world.getBlockAt(worldLocation.getX(), worldLocation.getY(), worldLocation.getZ());
@@ -60,10 +60,20 @@ public class SimpleJob implements Job
 		BlockData ret = this.provider.getBlockData(relativeLocation, current);
 		
 		if (!current.equals(ret)) {
-			affected++;
+			affected++;	
+			apply(this.world, worldLocation, ret);
+			return true;
 		}
-		
-		return new SimpleEntry<Point, BlockData>(worldLocation, ret);
+		return false;
+	}
+	
+	private void apply(World world, Point loc, BlockData data) {
+		if (data == null) {
+			return;
+		}
+		Block block = world.getBlockAt(loc.getX(), loc.getY(), loc.getZ());
+		block.setType(data.getType());
+		block.setData(data.getDataByte());
 	}
 	
 	private Point getLocationToChange() {
