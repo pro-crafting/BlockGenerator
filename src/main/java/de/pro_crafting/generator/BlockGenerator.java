@@ -33,6 +33,7 @@ public class BlockGenerator
 				job.setState(JobState.Running);
 			}
 			while (changedBlocks<this.maxBlockChange&&job.getState()==JobState.Running) {
+				job.next();
 				changedBlocks++;
 			}
 			if (job.getState() == JobState.Finished) {
