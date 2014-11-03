@@ -1,8 +1,5 @@
 package de.pro_crafting.generator.job;
 
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
-
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
@@ -14,12 +11,8 @@ import de.pro_crafting.generator.JobStateChangedCallback;
 import de.pro_crafting.generator.provider.Provider;
 import de.pro_crafting.generator.provider.SizeProvider;
 
-public class SimpleJob implements Job
-{
-	private int currX;
-	private int currY;
-	private int currZ;
-	private Point currLoc;
+public class SimpleJob implements Job {
+	private Point relativeLocation;
 	
 	private JobState jobState;
 	private JobStateChangedCallback callback;
@@ -42,23 +35,17 @@ public class SimpleJob implements Job
 		this.origin = origin;
 		this.size = size;
 		
-		this.currX = 0;
-		this.currY = size.getHeight();
-		this.currZ = 0;
-		
-		
-		this.affected = 0;
-		currLoc = new Point(currX, currY, currZ);
+		relativeLocation = new Point(0, size.getHeight(), 0);
 	}
 	
 	public boolean next() {
-		Point relativeLocation = getLocationToChange();
 		Point worldLocation = new Point(relativeLocation.getX()+this.origin.getX(), relativeLocation.getY()+this.origin.getY(), relativeLocation.getZ()+this.origin.getZ());
 		Block block = world.getBlockAt(worldLocation.getX(), worldLocation.getY(), worldLocation.getZ());
 		
 		BlockData current = new BlockData(block.getType(), block.getData());
 		BlockData ret = this.provider.getBlockData(relativeLocation, current);
 		
+		nextPosition();
 		if (!current.equals(ret)) {
 			affected++;	
 			apply(this.world, worldLocation, ret);
@@ -76,27 +63,22 @@ public class SimpleJob implements Job
 		block.setData(data.getDataByte());
 	}
 	
-	private Point getLocationToChange() {
-		if (currX == getSize().getWidth()+1) {
+	private void nextPosition() {
+		if (relativeLocation.getX() == getSize().getWidth()+1) {
 			this.setState(JobState.Finished);
-			return currLoc;
 		}
-		currLoc.setX(currX);
-		currLoc.setY(currY);
-		currLoc.setZ(currZ);
+
+		relativeLocation.setZ(relativeLocation.getZ()+1);
 		
-		currZ++;
-		
-		if (currZ == getSize().getDepth()+1) {
-			currZ = 0;
-			currY--;
+		if (relativeLocation.getZ() == getSize().getDepth()+1) {
+			relativeLocation.setZ(0);
+			relativeLocation.setY(relativeLocation.getY()-1);
 		}
 		
-		if (currY == -1) {
-			currY = getSize().getHeight();
-			currX++;
+		if (relativeLocation.getY() == -1) {
+			relativeLocation.setY(getSize().getHeight());
+			relativeLocation.setX(relativeLocation.getX()+1);
 		}
-		return this.currLoc;
 	}
 
 	public JobState getState() {
