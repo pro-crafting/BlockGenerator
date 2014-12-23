@@ -39,8 +39,7 @@ public class SimpleJob implements Job {
 	}
 	
 	public boolean next() {
-		Point worldLocation = new Point(relativeLocation.getX()+this.origin.getX(), relativeLocation.getY()+this.origin.getY(), relativeLocation.getZ()+this.origin.getZ());
-		Block block = world.getBlockAt(worldLocation.getX(), worldLocation.getY(), worldLocation.getZ());
+		Block block = world.getBlockAt(relativeLocation.getX()+this.origin.getX(), relativeLocation.getY()+this.origin.getY(), relativeLocation.getZ()+this.origin.getZ());
 		
 		BlockData current = new BlockData(block.getType(), block.getData());
 		BlockData ret = this.provider.getBlockData(relativeLocation, current);
