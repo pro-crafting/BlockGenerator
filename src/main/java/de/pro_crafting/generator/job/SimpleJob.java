@@ -46,20 +46,18 @@ public class SimpleJob implements Job {
 		BlockData ret = this.provider.getBlockData(relativeLocation, current);
 		
 		nextPosition();
-		if (!current.equals(ret)) {
+		if (!apply(block, ret)) {
 			affected++;	
-			apply(this.world, worldLocation, ret);
 			return true;
 		}
 		return false;
 	}
 	
-	private void apply(World world, Point loc, BlockData data) {
+	private boolean apply(Block currentBlock, BlockData data) {
 		if (data == null) {
-			return;
+			return false;
 		}
-		Block block = world.getBlockAt(loc.getX(), loc.getY(), loc.getZ());
-		block.setTypeIdAndData(data.getType().getId(), data.getDataByte(), true);
+		return currentBlock.setTypeIdAndData(data.getType().getId(), data.getDataByte(), true);
 	}
 	
 	private void nextPosition() {
