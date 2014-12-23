@@ -59,8 +59,7 @@ public class SimpleJob implements Job {
 			return;
 		}
 		Block block = world.getBlockAt(loc.getX(), loc.getY(), loc.getZ());
-		block.setType(data.getType());
-		block.setData(data.getDataByte());
+		block.setTypeIdAndData(data.getType().getId(), data.getDataByte(), true);
 	}
 	
 	private void nextPosition() {
