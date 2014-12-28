@@ -181,6 +181,10 @@ public class SchematicProvider implements SizeProvider{
 		return this.schem.getSize();
 	}
 	
+	public Point getOrigin() {
+		return this.schem.getOrigin();
+	}
+	
 	/**
      * Get child tag of a NBT structure.
      *
