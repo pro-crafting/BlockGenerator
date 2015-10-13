@@ -21,12 +21,21 @@ public class SimpleJob implements Job {
 	private int affected;
 	private Point origin;
 	private Size size;
-	
+	private boolean doPhysics;
+
+	public SimpleJob(Point origin, World world, JobStateChangedCallback callback, SizeProvider provider, boolean doPhysics) {
+		this(origin, provider.getSize(), world, callback, provider, doPhysics);
+	}
+
 	public SimpleJob(Point origin, World world, JobStateChangedCallback callback, SizeProvider provider) {
-		this(origin, provider.getSize(), world, callback, provider);
+		this(origin, provider.getSize(), world, callback, provider, true);
 	}
 
 	public SimpleJob(Point origin, Size size, World world, JobStateChangedCallback callback, Provider provider) {
+		this(origin, size, world, callback, provider, true);
+	}
+
+	public SimpleJob(Point origin, Size size, World world, JobStateChangedCallback callback, Provider provider, boolean doPhysics) {
 		this.jobState = JobState.Unstarted;
 		this.world = world;
 		this.callback = callback;
@@ -36,6 +45,7 @@ public class SimpleJob implements Job {
 		this.size = size;
 		
 		relativeLocation = new Point(0, size.getHeight(), 0);
+		this.doPhysics = doPhysics;
 	}
 	
 	public boolean next() {
@@ -56,7 +66,7 @@ public class SimpleJob implements Job {
 		if (data == null) {
 			return false;
 		}
-		return currentBlock.setTypeIdAndData(data.getType().getId(), data.getDataByte(), true);
+		return currentBlock.setTypeIdAndData(data.getType().getId(), data.getDataByte(), doPhysics);
 	}
 	
 	private void nextPosition() {
