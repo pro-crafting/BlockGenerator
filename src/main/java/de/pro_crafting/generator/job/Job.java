@@ -2,17 +2,17 @@ package de.pro_crafting.generator.job;
 
 import org.bukkit.World;
 
-import de.pro_crafting.common.Point;
-import de.pro_crafting.common.Size;
+import com.pro_crafting.mc.common.Point;
+import com.pro_crafting.mc.common.Size;
 import de.pro_crafting.generator.JobState;
 
 public interface Job 
 {
-	public boolean next();
-	public JobState getState();
-	public void setState(JobState state);
-	public World getWorld();
-	public int getAffectedBlocks();
-	public Point getOrigin();
-	public Size getSize();
+	boolean next();
+	JobState getState();
+	void setState(JobState state);
+	World getWorld();
+	int getAffectedBlocks();
+	Point getOrigin();
+	Size getSize();
 }

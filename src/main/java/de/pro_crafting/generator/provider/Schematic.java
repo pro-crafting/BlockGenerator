@@ -3,9 +3,9 @@ package de.pro_crafting.generator.provider;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.pro_crafting.common.Point;
-import de.pro_crafting.common.Size;
-import de.pro_crafting.generator.BlockData;
+import com.pro_crafting.mc.common.Point;
+import com.pro_crafting.mc.common.Size;
+import org.bukkit.block.data.BlockData;
 
 public class Schematic {
 	private Point offset;

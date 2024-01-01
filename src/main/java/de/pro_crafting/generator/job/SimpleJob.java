@@ -3,13 +3,13 @@ package de.pro_crafting.generator.job;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
-import de.pro_crafting.common.Point;
-import de.pro_crafting.common.Size;
-import de.pro_crafting.generator.BlockData;
+import com.pro_crafting.mc.common.Point;
+import com.pro_crafting.mc.common.Size;
 import de.pro_crafting.generator.JobState;
 import de.pro_crafting.generator.JobStateChangedCallback;
 import de.pro_crafting.generator.provider.Provider;
 import de.pro_crafting.generator.provider.SizeProvider;
+import org.bukkit.block.data.BlockData;
 
 public class SimpleJob implements Job {
 	private Point relativeLocation;
@@ -51,7 +51,7 @@ public class SimpleJob implements Job {
 	public boolean next() {
 		Block block = world.getBlockAt(relativeLocation.getX()+this.origin.getX(), relativeLocation.getY()+this.origin.getY(), relativeLocation.getZ()+this.origin.getZ());
 		
-		BlockData current = new BlockData(block.getType(), block.getData());
+		BlockData current = block.getBlockData();
 		BlockData ret = this.provider.getBlockData(relativeLocation, current);
 		
 		nextPosition();
@@ -66,7 +66,9 @@ public class SimpleJob implements Job {
 		if (data == null) {
 			return false;
 		}
-		return currentBlock.setTypeIdAndData(data.getType().getId(), data.getDataByte(), doPhysics);
+		currentBlock.setBlockData(data, doPhysics);
+
+		return true;
 	}
 	
 	private void nextPosition() {

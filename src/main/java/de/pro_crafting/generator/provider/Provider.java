@@ -1,8 +1,8 @@
 package de.pro_crafting.generator.provider;
 
-import de.pro_crafting.common.Point;
-import de.pro_crafting.generator.BlockData;
+import com.pro_crafting.mc.common.Point;
 import de.pro_crafting.generator.criteria.Criteria;
+import org.bukkit.block.data.BlockData;
 
 public interface Provider {
 	BlockData getBlockData(Point point, BlockData block);

@@ -3,9 +3,9 @@ package de.pro_crafting.generator.provider;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Map;
-import java.util.zip.GZIPInputStream;
 
 import org.bukkit.Material;
+import org.bukkit.block.data.BlockData;
 import org.jnbt.ByteArrayTag;
 import org.jnbt.CompoundTag;
 import org.jnbt.IntTag;
@@ -14,9 +14,8 @@ import org.jnbt.ShortTag;
 import org.jnbt.StringTag;
 import org.jnbt.Tag;
 
-import de.pro_crafting.common.Point;
-import de.pro_crafting.common.Size;
-import de.pro_crafting.generator.BlockData;
+import com.pro_crafting.mc.common.Point;
+import com.pro_crafting.mc.common.Size;
 import de.pro_crafting.generator.criteria.Criteria;
 
 public class SchematicProvider implements SizeProvider{
@@ -153,15 +152,15 @@ public class SchematicProvider implements SizeProvider{
 	                int index = y * width * length + z * width + x;
 	                Point pt = new Point(x, y, z);
 	                //BlockData block = //getBlockForId(blocks[index], blockData[index]);
-	                BlockData block = new BlockData(Material.getMaterial(blocks[index]), blockData[index]);
+	                //BlockData block = new BlockData(Material.getMaterial(blocks[index]), blockData[index]);
 	                /*if (tileEntitiesMap.containsKey(pt)) {
 	                    block.setNbtData(new CompoundTag("", tileEntitiesMap.get(pt)));
 	                }*/
-	                schem.set(pt, block);
+	                //schem.set(pt, block);
 	            }
 	        }
 	    }
-	    
+
 	    return schem;
 	}
 	
@@ -192,7 +191,7 @@ public class SchematicProvider implements SizeProvider{
      * @param key The name of the tag to get
      * @param expected The expected type of the tag
      * @return child tag casted to the expected type
-     * @throws DataException if the tag does not exist or the tag is not of the expected type
+     * @throws Exception if the tag does not exist or the tag is not of the expected type
      */
     private static <T extends Tag> T getChildTag(Map<String, Tag> items, String key,
                                                  Class<T> expected) throws Exception {
