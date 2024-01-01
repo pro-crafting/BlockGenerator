@@ -1,4 +1,4 @@
-package de.pro_crafting.generator.provider;
+package com.pro_crafting.mc.blockgenerator.provider;
 
 import java.util.HashMap;
 import java.util.Map;

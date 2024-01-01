@@ -1,16 +1,12 @@
-package de.pro_crafting.generator;
+package com.pro_crafting.mc.blockgenerator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
-import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
-import com.pro_crafting.mc.common.Point;
-import de.pro_crafting.generator.job.Job;
+import com.pro_crafting.mc.blockgenerator.job.Job;
 
 public class BlockGenerator 
 {

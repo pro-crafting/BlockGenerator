@@ -1,10 +1,10 @@
-package de.pro_crafting.generator.provider;
+package com.pro_crafting.mc.blockgenerator.provider;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 import com.pro_crafting.mc.common.Point;
-import de.pro_crafting.generator.criteria.Criteria;
+import com.pro_crafting.mc.blockgenerator.criteria.Criteria;
 import org.bukkit.block.data.BlockData;
 
 public class SingleBlockProvider implements Provider{
