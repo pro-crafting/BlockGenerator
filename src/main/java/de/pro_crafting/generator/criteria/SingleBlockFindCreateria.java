@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.bukkit.Material;
 
-import de.pro_crafting.common.Point;
-import de.pro_crafting.generator.BlockData;
+import com.pro_crafting.mc.common.Point;
+import org.bukkit.block.data.BlockData;
 
 public class SingleBlockFindCreateria {
 	private Criteria wraped;
@@ -15,11 +15,11 @@ public class SingleBlockFindCreateria {
 	
 	public SingleBlockFindCreateria(Material type) {
 		this.type = type;
-		this.matches = new ArrayList<Point>();
+		this.matches = new ArrayList<>();
 	}
 	
 	public boolean matches(Point point, BlockData block) {
-		boolean shouldSet = block.getType() == this.type;
+		boolean shouldSet = block.getMaterial() == this.type;
 		if (wraped != null && shouldSet) {
 			shouldSet = wraped.matches(point, block);
 		}

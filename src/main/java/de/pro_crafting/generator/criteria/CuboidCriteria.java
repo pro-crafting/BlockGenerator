@@ -1,7 +1,7 @@
 package de.pro_crafting.generator.criteria;
 
-import de.pro_crafting.common.Point;
-import de.pro_crafting.generator.BlockData;
+import com.pro_crafting.mc.common.Point;
+import org.bukkit.block.data.BlockData;
 
 public class CuboidCriteria implements Criteria {
 

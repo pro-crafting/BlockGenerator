@@ -1,8 +1,8 @@
 package de.pro_crafting.generator.criteria;
 
-import de.pro_crafting.common.Point;
-import de.pro_crafting.common.Size;
-import de.pro_crafting.generator.BlockData;
+import com.pro_crafting.mc.common.Point;
+import com.pro_crafting.mc.common.Size;
+import org.bukkit.block.data.BlockData;
 
 public class EdgeOutlineCriteria implements Criteria {
 

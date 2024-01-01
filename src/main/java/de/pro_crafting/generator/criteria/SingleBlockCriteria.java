@@ -2,8 +2,8 @@ package de.pro_crafting.generator.criteria;
 
 import org.bukkit.Material;
 
-import de.pro_crafting.common.Point;
-import de.pro_crafting.generator.BlockData;
+import com.pro_crafting.mc.common.Point;
+import org.bukkit.block.data.BlockData;
 
 public class SingleBlockCriteria implements Criteria {
 	
@@ -15,7 +15,7 @@ public class SingleBlockCriteria implements Criteria {
 	}
 	
 	public boolean matches(Point point, BlockData block) {
-		boolean shouldSet = block.getType() == this.type;
+		boolean shouldSet = block.getMaterial() == this.type;
 		if (wraped != null && shouldSet) {
 			return wraped.matches(point, block);
 		}

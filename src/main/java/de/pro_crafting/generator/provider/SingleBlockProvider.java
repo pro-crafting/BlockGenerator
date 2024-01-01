@@ -1,18 +1,19 @@
 package de.pro_crafting.generator.provider;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
-import de.pro_crafting.common.Point;
-import de.pro_crafting.generator.BlockData;
+import com.pro_crafting.mc.common.Point;
 import de.pro_crafting.generator.criteria.Criteria;
+import org.bukkit.block.data.BlockData;
 
 public class SingleBlockProvider implements Provider{
 	private BlockData blockData;
 	private Criteria criteria;
 	
-	public SingleBlockProvider(Criteria criteria, Material type, byte dataByte) {
+	public SingleBlockProvider(Criteria criteria, Material type, String data) {
 		this.criteria = criteria;
-		this.blockData = new BlockData(type, dataByte);
+		this.blockData = Bukkit.createBlockData(type, data);
 	}
 	
 	public BlockData getBlockData(Point point, BlockData block) {

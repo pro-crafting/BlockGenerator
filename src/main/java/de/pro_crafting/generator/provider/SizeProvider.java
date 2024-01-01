@@ -1,6 +1,6 @@
 package de.pro_crafting.generator.provider;
 
-import de.pro_crafting.common.Size;
+import com.pro_crafting.mc.common.Size;
 
 public interface SizeProvider extends Provider{
 	public Size getSize();
