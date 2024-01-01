@@ -1,14 +1,14 @@
-package de.pro_crafting.generator.job;
+package com.pro_crafting.mc.blockgenerator.job;
 
+import com.pro_crafting.mc.blockgenerator.JobState;
+import com.pro_crafting.mc.blockgenerator.JobStateChangedCallback;
+import com.pro_crafting.mc.blockgenerator.provider.Provider;
+import com.pro_crafting.mc.blockgenerator.provider.SizeProvider;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import com.pro_crafting.mc.common.Point;
 import com.pro_crafting.mc.common.Size;
-import de.pro_crafting.generator.JobState;
-import de.pro_crafting.generator.JobStateChangedCallback;
-import de.pro_crafting.generator.provider.Provider;
-import de.pro_crafting.generator.provider.SizeProvider;
 import org.bukkit.block.data.BlockData;
 
 public class SimpleJob implements Job {

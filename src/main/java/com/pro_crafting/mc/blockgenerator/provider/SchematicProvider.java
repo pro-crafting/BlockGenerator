@@ -1,10 +1,9 @@
-package de.pro_crafting.generator.provider;
+package com.pro_crafting.mc.blockgenerator.provider;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Map;
 
-import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
 import org.jnbt.ByteArrayTag;
 import org.jnbt.CompoundTag;
@@ -16,7 +15,7 @@ import org.jnbt.Tag;
 
 import com.pro_crafting.mc.common.Point;
 import com.pro_crafting.mc.common.Size;
-import de.pro_crafting.generator.criteria.Criteria;
+import com.pro_crafting.mc.blockgenerator.criteria.Criteria;
 
 public class SchematicProvider implements SizeProvider{
 	private Criteria criteria;

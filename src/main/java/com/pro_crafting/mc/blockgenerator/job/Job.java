@@ -1,10 +1,10 @@
-package de.pro_crafting.generator.job;
+package com.pro_crafting.mc.blockgenerator.job;
 
+import com.pro_crafting.mc.blockgenerator.JobState;
 import org.bukkit.World;
 
 import com.pro_crafting.mc.common.Point;
 import com.pro_crafting.mc.common.Size;
-import de.pro_crafting.generator.JobState;
 
 public interface Job 
 {

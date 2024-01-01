@@ -1,4 +1,4 @@
-package de.pro_crafting.generator.criteria;
+package com.pro_crafting.mc.blockgenerator.criteria;
 
 import com.pro_crafting.mc.common.Point;
 import com.pro_crafting.mc.common.Size;

@@ -1,4 +1,4 @@
-package de.pro_crafting.generator;
+package com.pro_crafting.mc.blockgenerator;
 
 public enum JobState 
 {

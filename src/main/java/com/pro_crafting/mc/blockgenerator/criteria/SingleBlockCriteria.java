@@ -1,4 +1,4 @@
-package de.pro_crafting.generator.criteria;
+package com.pro_crafting.mc.blockgenerator.criteria;
 
 import org.bukkit.Material;
 

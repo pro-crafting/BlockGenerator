@@ -1,8 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>BlockGenerator</artifactId>
-	<version>0.1.3-SNAPSHOT</version>
 
 	<parent>
 		<groupId>com.pro-crafting</groupId>
@@ -10,9 +8,15 @@
 		<version>15</version>
 	</parent>
 
+	<groupId>com.pro-crafting.mc</groupId>
+	<artifactId>blockgenerator</artifactId>
+	<version>0.2.0-SNAPSHOT</version>
+
 	<properties>
 		<maven.compiler.release>17</maven.compiler.release>
 		<version.spigot-api>1.20.2-R0.1-SNAPSHOT</version.spigot-api>
+		<version.common>0.3.0</version.common>
+		<version.jnbt>1.5</version.jnbt>
 	</properties>
 
 	<repositories>
@@ -33,14 +37,14 @@
 		<dependency>
 			<groupId>com.pro-crafting.mc</groupId>
 			<artifactId>common</artifactId>
-			<version>0.3.0</version>
+			<version>${version.common}</version>
 			<scope>compile</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.turt2live.lib</groupId>
 			<artifactId>JNBT</artifactId>
-			<version>1.5</version>
+			<version>${version.jnbt}</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/JNBT_1.5.jar</systemPath>
 		</dependency>
