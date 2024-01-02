@@ -9,13 +9,13 @@
 
 	<groupId>com.pro-crafting.mc</groupId>
 	<artifactId>blockgenerator</artifactId>
-	<version>0.2.0</version>
+	<version>0.2.1-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git@github.com:pro-crafting/BlockGenerator.git</connection>
 		<url>https://github.com/pro-crafting/BlockGenerator</url>
 		<developerConnection>scm:git:git@github.com:pro-crafting/BlockGenerator.git</developerConnection>
-		<tag>blockgenerator-0.2.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<properties>
