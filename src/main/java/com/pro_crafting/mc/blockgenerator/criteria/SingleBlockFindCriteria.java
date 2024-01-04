@@ -3,23 +3,21 @@ package com.pro_crafting.mc.blockgenerator.criteria;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Material;
-
 import com.pro_crafting.mc.common.Point;
 import org.bukkit.block.data.BlockData;
 
-public class SingleBlockFindCreateria {
+public class SingleBlockFindCriteria {
 	private Criteria wraped;
-	private Material type;
+	private BlockData blockData;
 	private List<Point> matches;
 	
-	public SingleBlockFindCreateria(Material type) {
-		this.type = type;
+	public SingleBlockFindCriteria(BlockData blockData) {
+		this.blockData = blockData;
 		this.matches = new ArrayList<>();
 	}
 	
 	public boolean matches(Point point, BlockData block) {
-		boolean shouldSet = block.getMaterial() == this.type;
+		boolean shouldSet = block.matches(block);
 		if (wraped != null && shouldSet) {
 			shouldSet = wraped.matches(point, block);
 		}
