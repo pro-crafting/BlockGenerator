@@ -44,7 +44,7 @@ public class SimpleJob implements Job {
 		this.origin = origin;
 		this.size = size;
 		
-		relativeLocation = new Point(0, size.getHeight(), 0);
+		relativeLocation = new Point(0, 0, 0);
 		this.doPhysics = doPhysics;
 	}
 	
@@ -72,19 +72,19 @@ public class SimpleJob implements Job {
 	}
 	
 	private void nextPosition() {
-		if (relativeLocation.getX() == getSize().getWidth()+1) {
+		if (relativeLocation.getX() == getSize().getWidth()) {
 			this.setState(JobState.Finished);
 		}
 
 		relativeLocation.setZ(relativeLocation.getZ()+1);
 		
-		if (relativeLocation.getZ() == getSize().getDepth()+1) {
+		if (relativeLocation.getZ() == getSize().getDepth()) {
 			relativeLocation.setZ(0);
-			relativeLocation.setY(relativeLocation.getY()-1);
+			relativeLocation.setY(relativeLocation.getY()+1);
 		}
 		
-		if (relativeLocation.getY() == -1) {
-			relativeLocation.setY(getSize().getHeight());
+		if (relativeLocation.getY() == getSize().getHeight()) {
+			relativeLocation.setY(0);
 			relativeLocation.setX(relativeLocation.getX()+1);
 		}
 	}

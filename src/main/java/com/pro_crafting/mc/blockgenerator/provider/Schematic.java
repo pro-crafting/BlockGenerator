@@ -8,24 +8,14 @@ import com.pro_crafting.mc.common.Size;
 import org.bukkit.block.data.BlockData;
 
 public class Schematic {
-	private Point offset;
 	private Point origin;
 	private Size size;
 	private Map<Point, BlockData> blocks;
 	
-	public Schematic(Point offset, Point origin, Size size) {
-		this.blocks = new HashMap<Point, BlockData>();
-		this.offset = offset;
+	public Schematic(Point origin, Size size) {
+		this.blocks = new HashMap<>();
 		this.origin = origin;
 		this.size = size;
-	}
-
-	public Point getOffset() {
-		return offset;
-	}
-
-	public void setOffset(Point offset) {
-		this.offset = offset;
 	}
 
 	public Point getOrigin() {

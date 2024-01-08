@@ -5,6 +5,6 @@ import com.pro_crafting.mc.blockgenerator.criteria.Criteria;
 import org.bukkit.block.data.BlockData;
 
 public interface Provider {
-	BlockData getBlockData(Point point, BlockData block);
+	BlockData getBlockData(Point point, BlockData current);
 	Criteria getCriteria();
 }

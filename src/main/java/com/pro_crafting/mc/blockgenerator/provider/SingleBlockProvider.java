@@ -13,9 +13,9 @@ public class SingleBlockProvider implements Provider{
 		this.blockData = blockData;
 	}
 	
-	public BlockData getBlockData(Point point, BlockData block) {
-		if (!criteria.matches(point, block)) {
-			return block;
+	public BlockData getBlockData(Point point, BlockData current) {
+		if (!criteria.matches(point, current)) {
+			return current;
 		}
 		return this.blockData;
 	}

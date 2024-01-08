@@ -22,13 +22,17 @@
 		<maven.compiler.release>17</maven.compiler.release>
 		<version.spigot-api>1.20.2-R0.1-SNAPSHOT</version.spigot-api>
 		<version.common>0.3.0</version.common>
-		<version.jnbt>1.5</version.jnbt>
+		<version.worldedit>7.2.18</version.worldedit>
 	</properties>
 
 	<repositories>
 		<repository>
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+		</repository>
+		<repository>
+			<id>enginehub</id>
+			<url>https://maven.enginehub.org/repo/</url>
 		</repository>
 	</repositories>
 
@@ -54,18 +58,18 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.sk89q.worldedit</groupId>
+			<artifactId>worldedit-bukkit</artifactId>
+			<version>${version.worldedit}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>com.pro-crafting.mc</groupId>
 			<artifactId>common</artifactId>
 			<version>${version.common}</version>
 			<scope>compile</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>com.turt2live.lib</groupId>
-			<artifactId>JNBT</artifactId>
-			<version>${version.jnbt}</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/JNBT_1.5.jar</systemPath>
-		</dependency>
+
 	</dependencies>
 </project>

@@ -11,9 +11,9 @@ public class BlockSearchProvider implements Provider {
 		this.criteria = criteria;
 	}
 	
-	public BlockData getBlockData(Point point, BlockData block) {
-		criteria.matches(point, block);
-		return block;
+	public BlockData getBlockData(Point point, BlockData current) {
+		criteria.matches(point, current);
+		return current;
 	}
 
 	public Criteria getCriteria() {
